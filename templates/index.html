@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style>
+            body { font-family: Arial, Helvetica, sans-serif; margin: 20px;}
+            td { padding: 5px;}
+            .bullish { background: green; color: white; }
+            .bearish { background: red; color: white; }
+        </style>
+    </head>
+<body>
+    <h1>CandleStick Scanner</h1>
+    <form>
+        <select name="pattern">
+            {% for pattern in patterns %}
+            <option value="{{ pattern }}" {% if pattern== current_pattern %} selected="selected" {% endif %} >{{ patterns[pattern] }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="scan" />
+
+    </form>
+    <table>
+        <tr>
+            <th>symbol</th>
+            <th>company</th>
+            <th>signal</th>
+        </tr>
+        {% for stock in stocks %}
+        {% if stocks[stock][current_pattern] %}
+
+        <tr>
+            <td> {{stock}} </td>
+            <td>{{stocks[stock]['company']}} </td>
+            <td class="{{ stocks[stock][current_pattern] }}">
+                {{stocks[stock][current_pattern]}}</td>
+        </tr>
+
+        {% endif %}
+{% endfor %}
+</table> 
+</body>
+</html>

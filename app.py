@@ -4,11 +4,10 @@ from nsetools import Nse
 import csv
 import json
 from nsepy import get_history
-from datetime import date
+from datetime import date, timedelta
 import os
 import pandas as pd
 import talib
-
 
 app = Flask(__name__)
 
@@ -24,7 +23,7 @@ def index():
         symbol = stock[0]
         stocks[symbol] = {'company':stock[1]}
     
-    print(stocks)
+    # print(stocks)
     if pattern:
         datafiles = os.listdir('datasets')
         for dataset in datafiles:
@@ -72,6 +71,7 @@ def snapshot():
     
     for stock in nifty_list:
         symbol = stock[0]
-        df = get_history(symbol=symbol,start=date(2021,2,11),end=date(2021,2,24))
+        days = date.today() - timedelta(5)
+        df = get_history(symbol=symbol,start= days,end=date.today())
         df.to_csv(f"datasets/{symbol}.csv")
-    return None
+    return {}

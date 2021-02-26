@@ -68,10 +68,11 @@ def realtimesnapshot():
 
 @app.route('/snapshot')
 def snapshot():
-    
+    today = date.today()
     for stock in nifty_list:
         symbol = stock[0]
+        
         days = date.today() - timedelta(5)
         df = get_history(symbol=symbol,start= days,end=date.today())
         df.to_csv(f"datasets/{symbol}.csv")
-    return {}
+    return f'updated data for {today.strftime("%B %d, %Y")}'

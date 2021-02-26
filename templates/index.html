@@ -9,6 +9,8 @@
     </head>
 <body>
     <h1>CandleStick Scanner</h1>
+    <button type="button" onclick="window.location.href='{{ url_for( 'snapshot') }}';">Update data</button>
+
     <form>
         <select name="pattern">
             {% for pattern in patterns %}
